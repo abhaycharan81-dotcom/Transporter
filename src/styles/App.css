@@ -1,0 +1,204 @@
+/* ===========================================================
+   Layout: mobile-first, sidebar becomes fixed left rail on desktop
+   =========================================================== */
+
+.app-layout { width: 100%; max-width: 1080px; margin: 0 auto; }
+
+/* ---- Top bar (mobile) ---- */
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+.app-brand { display: flex; align-items: center; gap: 9px; }
+.app-brand .brand-mark {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--navy); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+.app-brand .brand-name { font-weight: 800; font-size: 18px; color: var(--ink); letter-spacing: -0.01em; }
+.app-brand .brand-tag { font-size: 11px; color: var(--ink-faint); font-weight: 600; margin-top: -2px; }
+
+.menu-toggle {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  width: 46px; height: 46px; min-height: 46px; padding: 0;
+}
+
+/* ---- Sidebar ---- */
+.sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin: 4px 16px 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-brand-row {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+.profile-avatar {
+  width: 50px; height: 50px; border-radius: 14px;
+  background: var(--navy);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px;
+  flex-shrink: 0;
+}
+.profile-meta { flex: 1; min-width: 0; }
+.profile-meta h3 { font-size: 16px; margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.profile-meta p { margin: 0; color: var(--ink-faint); font-size: 13px; }
+
+.profile-details {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  padding: 10px 12px;
+  background: var(--surface-sunk);
+  border-radius: var(--radius-sm);
+}
+.detail-row svg { color: var(--navy); flex-shrink: 0; margin-top: 2px; }
+.detail-row strong { color: var(--ink); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 2px; }
+
+.card-actions { display: flex; flex-direction: column; gap: 8px; padding: 4px 16px 16px; }
+
+/* ---- Main content ---- */
+.main-content { padding: 4px 16px 32px; }
+.page-header { margin-bottom: 16px; }
+.page-header h2 { margin-bottom: 4px; }
+.page-header p { font-size: 14.5px; }
+
+.page-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow-sm); margin: 0 0 14px; }
+.section-header { margin-bottom: 14px; }
+.section-header h3 { margin-bottom: 3px; }
+.section-header p { font-size: 13.5px; }
+
+.order-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; }
+.order-card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 8px; }
+.order-route { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.route-line { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--ink); }
+.route-line svg { flex-shrink: 0; }
+.route-connector { width: 1.5px; height: 12px; background: var(--border-strong); margin-left: 9px; }
+.order-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+
+.bid-card { background: var(--surface-sunk); border-radius: var(--radius-sm); padding: 12px; margin-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.bid-card-info { display: flex; align-items: center; gap: 10px; }
+.bid-card-info svg { color: var(--navy); }
+
+.form-actions { display: flex; gap: 8px; flex-direction: column; }
+
+/* ---- Registration stepper ---- */
+.step-track { display: flex; align-items: center; gap: 6px; margin-bottom: 20px; }
+.step-dot {
+  flex: 1; height: 5px; border-radius: var(--radius-pill);
+  background: var(--border);
+}
+.step-dot.done, .step-dot.active { background: var(--orange); }
+.step-label { font-size: 13px; color: var(--ink-faint); font-weight: 700; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.role-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 4px; }
+.role-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px; background: var(--surface);
+  border: 2px solid var(--border); border-radius: var(--radius-lg);
+  text-align: left; cursor: pointer;
+}
+.role-card .role-icon {
+  width: 48px; height: 48px; border-radius: var(--radius);
+  background: var(--navy-100); color: var(--navy);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.role-card h4 { margin-bottom: 3px; }
+.role-card p { font-size: 13.5px; }
+.role-card.selected { border-color: var(--orange); background: var(--orange-100); }
+.role-card.selected .role-icon { background: var(--orange); color: #fff; }
+.role-card .role-arrow { margin-left: auto; color: var(--ink-faint); flex-shrink: 0; }
+
+/* ---- Bid options (meter grid) ---- */
+.bid-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.bid-tile {
+  background: var(--navy); color: #fff;
+  border-radius: var(--radius); padding: 14px 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  min-height: var(--tap);
+}
+.bid-tile:hover { background: var(--navy-700); }
+.bid-tile .bid-amount { font-family: var(--font-mono); font-weight: 700; font-size: 19px; letter-spacing: 0.02em; }
+.bid-tile .bid-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.65); font-weight: 600; }
+
+/* ---- Modal ---- */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(15, 19, 33, 0.55); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 16px; }
+.modal-card { background: var(--surface); border-radius: var(--radius-lg); padding: 20px; width: 100%; max-width: 420px; box-shadow: var(--shadow-lg); }
+
+/* ---- Backdrop for mobile sidebar ---- */
+.backdrop { position: fixed; inset: 0; z-index: 70; background: rgba(15, 19, 33, 0.5); opacity: 0; transition: opacity 200ms ease; pointer-events: none; }
+.backdrop.show { opacity: 1; pointer-events: auto; }
+
+.close-icon svg { width: 18px; height: 18px; }
+
+/* ---- Location input ---- */
+.location-box { border: 1.5px dashed var(--border-strong); border-radius: var(--radius); padding: 14px; margin-bottom: 16px; }
+.location-status { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink-soft); margin-top: 10px; font-weight: 600; }
+.location-status.ok { color: var(--green); }
+.location-status.err { color: var(--red); }
+.location-status .spin { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===========================================================
+   Responsive
+   =========================================================== */
+@media (max-width: 899px) {
+  .sidebar {
+    position: fixed;
+    top: 70px;
+    left: 12px;
+    width: 320px;
+    max-width: calc(100% - 24px);
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    transform: translateX(-130%);
+    transition: transform 300ms cubic-bezier(.22,.9,.26,1), opacity 220ms ease;
+    z-index: 80;
+    opacity: 0;
+  }
+  .sidebar.open { transform: translateX(0); opacity: 1; }
+}
+
+@media (min-width: 900px) {
+  .app-topbar { display: none; }
+  .app-layout { display: flex; align-items: flex-start; gap: 22px; padding: 24px; }
+  .sidebar { width: 268px; margin: 0; position: sticky; top: 24px; }
+  .sidebar-brand-row { display: flex; }
+  .main-content { flex: 1; padding: 0; }
+}
+
+@media (max-width: 480px) {
+  .option-grid { grid-template-columns: repeat(2, 1fr); }
+  .bid-grid { grid-template-columns: repeat(2, 1fr); }
+}
