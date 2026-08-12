@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "transporter-b80fb",
     "public": "public",
     "ignore": [
       "firebase.json",
