@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import React, { createContext, useEffect, useState, useRef } from "react";
+import { doc, serverTimestamp, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const AppContext = createContext();
@@ -21,6 +21,8 @@ export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(initialState.user);
   const [orders, setOrders] = useState(initialState.orders);
   const [bids, setBids] = useState(initialState.bids);
+  const [initialized, setInitialized] = useState(false);
+  const firstSaveRef = useRef(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -28,7 +30,41 @@ export const AppProvider = ({ children }) => {
     }
   }, [user, orders, bids]);
 
+  // Initialize from Firestore on first load to avoid overwriting remote state
   useEffect(() => {
+    const initFromFirestore = async () => {
+      if (typeof window === "undefined") return;
+      try {
+        const snap = await getDoc(FIRESTORE_DOC);
+        if (snap.exists()) {
+          const data = snap.data();
+          setUser(data.user ?? initialState.user);
+          setOrders(data.orders ?? initialState.orders);
+          setBids(data.bids ?? initialState.bids);
+          // persist to localStorage so both are in sync
+          window.localStorage.setItem(
+            "transporterAppState",
+            JSON.stringify({ user: data.user ?? null, orders: data.orders ?? [], bids: data.bids ?? [] })
+          );
+        }
+      } catch (error) {
+        console.error("Failed to load app state from Firestore:", error);
+      } finally {
+        setInitialized(true);
+      }
+    };
+    initFromFirestore();
+  }, []);
+
+  // Save to Firestore when state changes, but skip the first automatic save
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!initialized) return;
+    if (firstSaveRef.current) {
+      firstSaveRef.current = false;
+      return;
+    }
+
     const saveAppStateToFirestore = async () => {
       try {
         await setDoc(
@@ -46,10 +82,8 @@ export const AppProvider = ({ children }) => {
       }
     };
 
-    if (typeof window !== "undefined") {
-      saveAppStateToFirestore();
-    }
-  }, [user, orders, bids]);
+    saveAppStateToFirestore();
+  }, [user, orders, bids, initialized]);
 
   const updateOrder = (updatedOrder) => {
     setOrders((prev) => prev.map((order) => (order.id === updatedOrder.id ? updatedOrder : order)));
